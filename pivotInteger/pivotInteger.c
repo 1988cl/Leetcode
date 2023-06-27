@@ -1,5 +1,5 @@
 #include <stdio.h>
-
+//pivotInteger
 int pivotInteger(int n){
     if(n==1){
         return 1;
