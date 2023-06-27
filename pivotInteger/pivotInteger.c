@@ -1,31 +1,25 @@
 #include <stdio.h>
 //pivotInteger
-int pivotInteger(int n){
-    if(n==1){
-        return 1;
-    }
-    unsigned char changed = 0;
-    int middle  = n>>1;
-    int left = 0;
+int pivotInteger(int n){   
+    int middle  = 0;
+    int left = 1;
     int right = n;  
-    while(left!=right){      
-        left = ((1+middle)*(middle))>>1;
-        right = ((middle+n)*(n-middle+1))>>1;
-        if(left > right){
-            middle = middle - 1;
-            changed = changed | 1;
-        }else if(left < right){
-            middle = middle + 1;
-            changed =  changed | 2;
+    while(left<=right){
+        middle = left + (right-left)/2;       
+        int left_sum = ((1+middle)*(middle))/2;
+        int right_sum = ((middle+n)*(n-middle+1))/2;
+        if(left_sum > right_sum){
+            right = middle - 1;
+        }else if(left_sum < right_sum){
+            left = middle + 1;           
+        }else{
+            return middle;
         }
-        if((changed & 1) == ((changed>>1) & 1)){
-            middle = -1;
-            break;
-        }      
+              
     }
-    return middle;
+    return -1;
 }
 
 void main(){
-    printf("the result is %d\n",pivotInteger(8));
+    printf("the result is %d\n",pivotInteger(4));
 }
