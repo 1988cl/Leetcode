@@ -1,7 +1,7 @@
 #include <stdio.h>
 
 int maximumSum(int* arr, int arrSize){
-    printf("nothing");
+    
 }
 
 void main(){
