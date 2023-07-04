@@ -2,15 +2,19 @@
 #include <String.h>
 
 int lengthOfLongestSubstring(char * s){
-
+    int len = 1;
+    char *s1 = s + 1;
+    while(s1!='\0'){
+        if((*s1)!=(*s)){
+            s1++;
+            len++;
+        }else{
+            
+        }
+    }
 }
 
 void main(){
-    char* test = "asdasd";
-    printf("test len is %d\n",strlen(test));
-    printf("test len is %d\n",sizeof(test));
-    char test1[] = "asdasdsad";
-    printf("test1 len is %d\n",strlen(test1));
-    printf("test1 len is %d\n",sizeof(test1));
+    
 }
 
