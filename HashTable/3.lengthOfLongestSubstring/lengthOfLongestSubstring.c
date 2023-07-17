@@ -11,6 +11,10 @@ typedef struct {
 stringItemP stringItems = NULL;
 
 int lengthOfLongestSubstring(char * s){
+    if(strcmp(s,"")==0){
+        return 0;
+    }
+    stringItemP stringItems = NULL;
     int len = 0;
     int result = 1;
     char* sp = s;
@@ -26,8 +30,7 @@ int lengthOfLongestSubstring(char * s){
             }
             tmp->key = ckey;
             tmp->val = sp;
-            HASH_ADD_INT(stringItems,key,tmp);
-            len++;            
+            HASH_ADD_INT(stringItems,key,tmp);           
         }else{
             start = tmp->val + 1;
             stringItemP tmp1 = (stringItemP)malloc(sizeof(stringItem));
@@ -35,19 +38,17 @@ int lengthOfLongestSubstring(char * s){
             tmp1->val = sp;
             HASH_REPLACE_INT(stringItems,key,tmp1,tmp);
         }
-        sp++;
-        len = sp - start;
+        
+        len = sp - start+1;
         result = result>=len?result:len;
+        sp++;
     }   
     return result;
 }
 
 void main(){
     char* test = "asdasd";
-    printf("test len is %d\n",strlen(test));
-    printf("test len is %d\n",sizeof(test));
-    char test1[] = "asdasdsad";
-    printf("test1 len is %d\n",strlen(test1));
-    printf("test1 len is %d\n",sizeof(test1));
+    printf("len is %d\n",lengthOfLongestSubstring(test));
+   
 }
 
