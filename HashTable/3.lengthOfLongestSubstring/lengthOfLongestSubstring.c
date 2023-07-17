@@ -14,6 +14,7 @@ int lengthOfLongestSubstring(char * s){
     int len = 0;
     int result = 1;
     char* sp = s;
+    char* start = s;
     while((*sp)!= '\0'){
         stringItemP tmp = NULL;
         int ckey = *sp;
@@ -26,21 +27,18 @@ int lengthOfLongestSubstring(char * s){
             tmp->key = ckey;
             tmp->val = sp;
             HASH_ADD_INT(stringItems,key,tmp);
-            len++;
-            sp++;
+            len++;            
         }else{
-            if(tmp->val!=sp){
-                len = 0;
-                sp = tmp->val + 1;
-                stringItemP tmp1 = (stringItemP)malloc(sizeof(stringItem));
-                tmp1->key = ckey;
-                tmp1->val = sp;
-                HASH_REPLACE_INT(stringItems,key,tmp1,tmp);
-            }else{
-                sp++;
-                len++;
-            }
+            len = sp - start;
+            result = result>=len?result:len;
+            len = 0;
+            start = tmp->val + 1;
+            stringItemP tmp1 = (stringItemP)malloc(sizeof(stringItem));
+            tmp1->key = ckey;
+            tmp1->val = sp;
+            HASH_REPLACE_INT(stringItems,key,tmp1,tmp);
         }
+        sp++;
         result = result>=len?result:len;
     }   
     return result;
