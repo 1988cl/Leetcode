@@ -29,9 +29,6 @@ int lengthOfLongestSubstring(char * s){
             HASH_ADD_INT(stringItems,key,tmp);
             len++;            
         }else{
-            len = sp - start;
-            result = result>=len?result:len;
-            len = 0;
             start = tmp->val + 1;
             stringItemP tmp1 = (stringItemP)malloc(sizeof(stringItem));
             tmp1->key = ckey;
@@ -39,6 +36,7 @@ int lengthOfLongestSubstring(char * s){
             HASH_REPLACE_INT(stringItems,key,tmp1,tmp);
         }
         sp++;
+        len = sp - start;
         result = result>=len?result:len;
     }   
     return result;
