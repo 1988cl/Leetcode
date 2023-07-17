@@ -43,7 +43,6 @@ int lengthOfLongestSubstring(char * s){
         }
         result = result>=len?result:len;
     }   
-    
     return result;
 }
 
