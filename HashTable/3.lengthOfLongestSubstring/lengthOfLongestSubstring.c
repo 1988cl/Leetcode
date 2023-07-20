@@ -40,7 +40,7 @@ int lengthOfLongestSubstring(char * s){
             tmp1->val = sp;
             HASH_REPLACE_INT(stringItems,key,tmp1,tmp);
         }
-        
+    
         len = sp - start + 1;
         result = result>=len?result:len;
         sp++;
