@@ -32,15 +32,15 @@ int lengthOfLongestSubstring(char * s){
             tmp->val = sp;
             HASH_ADD_INT(stringItems,key,tmp);           
         }else{
-            if(start < tmp->val + 1){
-                start = tmp->val + 1;
-                  stringItemP tmp1 = (stringItemP)malloc(sizeof(stringItem));
-                  tmp1->key = ckey;
-                  tmp1->val = sp;
-                  HASH_REPLACE_INT(stringItems,key,tmp1,tmp);
+
+            if(start<tmp->val + 1){
+                start = tmp->val + 1;    
             }
+            stringItemP tmp1 = (stringItemP)malloc(sizeof(stringItem));
+            tmp1->key = ckey;
+            tmp1->val = sp;
+            HASH_REPLACE_INT(stringItems,key,tmp1,tmp);
         }
-        
         len = sp - start + 1;
         result = result>=len?result:len;
         sp++;
@@ -49,7 +49,7 @@ int lengthOfLongestSubstring(char * s){
 }
 
 void main(){
-    char* test = "abba";
+    char* test = "aabaab!bb";
     printf("len is %d\n",lengthOfLongestSubstring(test));
    
 }
