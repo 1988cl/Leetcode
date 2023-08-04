@@ -36,8 +36,7 @@ char * intToRoman(int num){
 
 void main(){
     int num = 123;
-    while(num!=0){
-        
+    while(num!=0){        
         printf("the num is %d\n",num);
         num = num/10;
     }

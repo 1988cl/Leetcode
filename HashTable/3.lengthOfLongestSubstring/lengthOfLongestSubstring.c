@@ -50,6 +50,7 @@ int lengthOfLongestSubstring(char * s){
 
 void main(){
     char* test = "aabaab!bb";
+    test = "asd";
     printf("len is %d\n",lengthOfLongestSubstring(test));
    
 }
