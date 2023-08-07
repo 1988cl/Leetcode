@@ -9,33 +9,26 @@ typedef struct{
     UT_hash_handle hh;
 }romanHash,*romanHashP;
 
-int keys[arr_size] = {1,5,10,50,100,500,1000,4,9,40,900,400,900};
-char* vals[arr_size] = {"I","V","X","L","C","D","M","IV","IX","XL","XC","CD","CM"};
+int keys[arr_size] = {1000,900,500,400,100,90,50,40,10,9,5,4,1};
+char* vals[arr_size] = {"M","CM","D","CD","C","XC","L","XL","X","IX","V","IV","I"};
 
 int baseGet(int num){
     int result = 1;
-    
-    if(num>1000){
-        result = 1000;    
-    }else if(num<1000&&num>500){
-        result = 500;
-    }else if(num<500&&num>100){
-        result = 100;
-    }else if(num<100&&num>50){
-        result = 50;
-    }else if(num<50&&num>10){
-        result = 10;
-    }else if(num<10&&num>5){
-        result = 5;
-    }else{
-        result = 1;
-    }
+    for(int i=0;i<arr_size;i++){
+        if(num>=keys[i]){
+            result=keys[i];
+            break;
+        }
+    }    
     return result;
 }
 
 char * intToRoman(int num){
-    char result[20];
-    int count = 0;
+    char* result = (char*)malloc(sizeof(char)*16);
+    if(result == NULL){
+        exit(1);
+    }
+    memset(result, '\0', sizeof(result));
     romanHashP romanHashs = NULL;
     for(int index=0;index<arr_size;index++){
         romanHashP tmp = (romanHashP)malloc(sizeof(romanHash));
@@ -46,30 +39,25 @@ char * intToRoman(int num){
         tmp->val = vals[index];
         HASH_ADD_INT(romanHashs,key,tmp);
     }
-
-    
+    int count = 0;
+    int base = 1;
     while(num!=0){
-        romanHashP tmp = NULL;
-        HASH_FIND_INT(romanHashs,&num,tmp);
-        if(tmp!=NULL){
-            strcat(result,tmp->val);
-            break;
-        }else{
-            count = num/baseGet(num);
-            char strtmp[20];
-            for(int i=0;i<(num/baseGet(num));i++){
-                romanHashP tmp = NULL;
-                HASH_FIND_INT(romanHashs,&num,tmp);
-                strcat(strtmp,tmp->val);
-            }
-            strcat(result,strtmp);
-            num = num%count;
+        base = baseGet(num);
+        count = num/base;
+        char strtmp[4];
+        memset(strtmp, '\0', sizeof(strtmp));
+        for(int i=0;i<count;i++){
+            romanHashP tmp = NULL;
+            HASH_FIND_INT(romanHashs,&base,tmp);
+            strcat(strtmp,tmp->val);
         }
+        strcat(result,strtmp);
+        num = num%base;        
     }    
     return result;
 }
 
 void main(){
     int num = 123;
-    printf("the result is %s\n",intToRoman(11));
+    printf("the result is %s\n",intToRoman(12));
 }
