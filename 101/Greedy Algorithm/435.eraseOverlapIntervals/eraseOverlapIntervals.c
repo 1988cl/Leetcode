@@ -1,6 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+void arrSort(int** intervals){
+    
+}
 int eraseOverlapIntervals(int** intervals, int intervalsSize, int* intervalsColSize){
     int compare1 = 0;
     int compare2 = 0;
