@@ -1,21 +1,47 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+
+void arrSort(int** arr,int N){
+    int pivot;
+    int index;
+    int tmp[2];
+    
+    for(pivot=1;pivot<N;pivot++){
+        tmp[0] = arr[pivot][0];
+        tmp[1] = arr[pivot][1];
+        for(index=pivot;index>0&&arr[index-1][1]>tmp[1];index--){
+            arr[index][0] = arr[index-1][0];
+            arr[index][1] = arr[index-1][1];
+        }
+        arr[index][0] = tmp[0];
+        arr[index][1] = tmp[1];
+    }
+}
+
 int eraseOverlapIntervals(int** intervals, int intervalsSize, int* intervalsColSize){
-    int compare1 = 0;
-    int compare2 = 0;
     int result = 0;
+    arrSort(intervals,intervalsSize);
     for(int i=1;i<intervalsSize;i++){
-        compare1 = intervals[i-1][1];
-        compare2 = intervals[i][0];
-        if(compare1>compare2){
+        if(intervals[i][0]<intervals[i-1][1]){
             result++;
         }
-
     }
     return result;   
 }
 
 void main(){
-    
+    //[[1,100],[11,22],[1,11],[2,12]] / [1,11] [2,12] [11,22] [1,100]
+    int arr[4][2] = {{1,2},{2,3},{3,4},{1,3}};
+    int* arrP[4];
+    for(int i=0;i<4;i++){
+        arrP[i] = arr[i];
+    } 
+    arrSort(arrP,4);
+    for(int i=0;i<4;i++){
+        for(int j=0;j<2;j++){
+            printf("[%d,%d]:{%d}\n",i,j,arr[i][j]);
+        }
+    }
+          
 }
