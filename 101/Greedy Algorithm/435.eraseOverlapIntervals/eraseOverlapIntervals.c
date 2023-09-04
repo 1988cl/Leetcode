@@ -55,6 +55,7 @@ void arrSort(int** arr,int N){
 int eraseOverlapIntervals(int** intervals, int intervalsSize, int* intervalsColSize){
     int result = 0;
     arrSort(intervals,intervalsSize);
+    //arrSort1(intervals,0,intervalsSize-1);
     int pre = intervals[0][1];
     for(int i=1;i<intervalsSize;i++){
         if(intervals[i][0]<pre){
@@ -68,13 +69,16 @@ int eraseOverlapIntervals(int** intervals, int intervalsSize, int* intervalsColS
 
 void main(){
     //[[1,100],[11,22],[1,11],[2,12]] / [1,11] [2,12] [11,22] [1,100]
-    int arr[6][2] = {{1,2},{2,3},{3,4},{1,3},{5,8},{4,6}};
+    int arr[4][2] = {{1,2},{2,3},{3,4},{1,3}};
     int* arrP[4];
-    for(int i=0;i<6;i++){
+    for(int i=0;i<4;i++){
         arrP[i] = arr[i];
-    } 
-    arrSort1(arrP,0,5);
-    for(int i=0;i<6;i++){
+    }
+    int a = 2;
+    int* intervalsColSize = &a;  
+    printf("%d",eraseOverlapIntervals(arrP,4,intervalsColSize));
+    // arrSort1(arrP,0,5);
+    for(int i=0;i<4;i++){
         for(int j=0;j<2;j++){
             printf("[%d,%d]:{%d}\n",i,j,arr[i][j]);
         }
