@@ -18,17 +18,21 @@ int median3(int arr[],int left,int right){
         swap(&arr[center],&arr[right]);
     }
     swap(&arr[center],&arr[right-1]);
+    for(int i=0;i<5;i++){
+        printf("the arr[%d] is %d\n",i,arr[i]);
+    }  
     return arr[right-1];
 }
 
 void qSort(int arr[],int left,int right){
-    int i,j;
+    int i = 0;
+    int j = 0;
     int pivot;
     pivot = median3(arr,left,right);
-    i = left; j = right - 1;
+    i = left; j = right-1;
     for(;;){
-        while(arr[++i]<pivot){}
-        while(arr[--j]>pivot){}
+        while(arr[i]<pivot){i++;}
+        while(arr[j]>pivot){j--;}
         if(i<j){
             swap(&arr[i],&arr[j]);
         }else{
@@ -38,6 +42,34 @@ void qSort(int arr[],int left,int right){
     swap(&arr[i],&arr[right-1]);
     qSort(arr,left,i-1);
     qSort(arr,i+1,right);    
+}
+void qSort1(int arr[],int left,int right){
+    if (left > right) {
+            return;
+        }
+        int pivot = arr[left];  // 定义第一个数为基准数
+
+        int i = left;
+        int j = right;
+
+        while (i < j) {
+            while (pivot <= arr[j] && i < j) {  // 从右往左找比基准数小的
+                j = j - 1;
+            }
+            while (pivot >= arr[i] && i < j) {  // 从左往右找比基准数大的
+                i = i + 1;
+            }
+            if (i < j) {
+                int temp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = temp;
+            }
+        }
+        arr[left] = arr[i];  // i位置的数一定小于基准数，两者可以进行交换
+        arr[i] = pivot;  // i位置为基准数的最终位置
+
+        qSort1(arr, left, i-1);
+        qSort1(arr, i+1, right);
 }
 void quickSort(int arr[],int N){
     qSort(arr,0,N-1);
